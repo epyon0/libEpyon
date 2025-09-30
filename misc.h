@@ -15,21 +15,27 @@
   ((byte) & 0x08 ? '1' : '0'), \
   ((byte) & 0x04 ? '1' : '0'), \
   ((byte) & 0x02 ? '1' : '0'), \
-  ((byte) & 0x01 ? '1' : '0') 
+  ((byte) & 0x01 ? '1' : '0')
 
-void verbose(const char *msg, const char *file, const int line, const char *func, const bool enabled);
+void verbose(const char *msg, const char *file, const int line, const char *func);
 char* uint8tob(uint8_t i);
 char* uint16tob(uint16_t i);
 char* uint32tob(uint32_t i);
 char* uint64tob(uint64_t i);
+bool verbose_enabled = false;
+void setverbose(bool value);
 
-void verbose(const char *msg, const char *file, const int line, const char *func, const bool enabled) {
+void setverbose(bool value) {
+    verbose_enabled = value;
+}
+
+void verbose(const char *msg, const char *file, const int line, const char *func) {
     time_t now;
     struct tm *timeinfo;
     time(&now);
     timeinfo = localtime(&now);
 
-    if (enabled) {
+    if (verbose_enabled) {
         fprintf(stderr, "%.2d:%.2d:%.2d | %s:%d | %s | DEBUG: %s\n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec, file, line, func, msg);
     }
 }
