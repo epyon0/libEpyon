@@ -24,9 +24,14 @@ char* uint32tob(uint32_t i);
 char* uint64tob(uint64_t i);
 bool verbose_enabled = false;
 void setverbose(bool value);
+bool getverbose(void);
 
 void setverbose(bool value) {
     verbose_enabled = value;
+}
+
+bool getverbose(void) {
+    return verbose_enabled;
 }
 
 void verbose(const char *msg, const char *file, const int line, const char *func) {
