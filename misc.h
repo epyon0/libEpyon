@@ -25,6 +25,66 @@ char* uint64tob(uint64_t i);
 bool verbose_enabled = false;
 void setverbose(bool value);
 bool getverbose(void);
+char* btos(const long long unsigned int i);
+
+char* btos(const long long unsigned int i) { // Accepts bytes and retruns in human readable string
+  static char buff[256];
+  /*
+  long long unsigned int base = 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
+
+  if (i >= base) { // Yottabyte
+    snprintf(buff, sizeof(buff), "%llu YB", i / base);
+    return buff;
+  }
+  
+  base /= 1024;
+  if (i >= base) { // Zettabyte
+    snprintf(buff, sizeof(buff), "%llu ZB", i / base);
+    return buff;
+  }
+  
+  base /= 1024;
+  if (i >= base) { // Exabyte
+    snprintf(buff, sizeof(buff), "%llu EB", i / base);
+    return buff;
+  }
+  */
+
+  long long unsigned int base = 0x4000000000000;
+  if (i >= base) { // Petabyte
+    snprintf(buff, sizeof(buff), "%llu PB", i / base);
+    return buff;
+  }
+  
+  base /= 1024;
+  if (i >= base) { // Terabyte
+    snprintf(buff, sizeof(buff), "%llu TB", i / base);
+    return buff;
+  }
+  
+
+  base /= 1024;
+  if (i >= base) { // Gigabyte
+    snprintf(buff, sizeof(buff), "%llu GB", i / base);
+    return buff;
+  }
+  
+  base /= 1024;
+  if (i >= base) { // Megabyte
+    snprintf(buff, sizeof(buff), "%llu MB", i / base);
+    return buff;
+  }
+  
+  base /= 1024;
+  if (i >= base) { // Kilobyte
+    snprintf(buff, sizeof(buff), "%llu KB", i / base);
+    return buff;
+  }
+
+  // Byte
+  snprintf(buff, sizeof(buff), "%llu B", i);
+  return buff;  
+}
 
 void setverbose(bool value) {
     verbose_enabled = value;
